@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="1st project.css">
+        <body>
+            <div class="container">
+            <div class="first">
+                <h2> My To Do List </h2>
+                <div class="second">
+                    <input type="text" id="Add" placeholder="Add Text Here">
+                    <button onclick="addyouwant()"> Add </button>
+                </div>
+                <ul id="list"></ul>
+            </div>
+            </div>
+            <script>
+                const Add = document.getElementById('Add');
+                const list = document.getElementById('list');
+                function addyouwant(){
+                    if(Add.value===''){
+                        alert('you must write any thing');
+                    }
+                    else{
+                        let li= document.createElement('li');
+                        li.innerHTML=Add.value;
+                        list.appendChild(li);
+                        let span = document.createElement('span');
+                        span.innerHTML='\u00d7';
+
+                        li.appendChild(span);
+                    }
+                    Add.value='';
+                    savedata();
+                }
+
+                list.addEventListener("click", function(e){
+                if(e.target.tagName ==='LI'){
+                    e.target.classList.toggle("checked");
+                    savedata();
+                    }
+                    else if(e.target.tagName==='SPAN'){
+                        e.target.parentElement.remove();
+                        savedata();
+                    }
+                }, 
+                false);
+                function savedata(){
+                    localStorage.setItem("data" ,list.innerHTML);
+
+                }
+                function showtask(){
+                    list.innerHTML=localStorage.getItem("data");
+                }
+                showtask();
+
+            </script>
+
+        </body>
+    </head>
+</html>
